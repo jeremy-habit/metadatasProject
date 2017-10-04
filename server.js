@@ -23,9 +23,26 @@ app.post('/upload', upload.single('file'), function (req, res, next) {
     fields['fileName'] = metadatas.FileName
     fields['description'] = metadatas.Title
     fields['copyright'] = metadatas.Copyright
+    fields['path'] = req.file.path
     console.log(fields)
     res.render('form.html.twig', {fields: fields})
   }
+})
+
+app.post('/display', function (req, res, next) {/*
+  let cmd = exec('exiftool -json ' + req.file.path, function (error, stdout, stderr) {
+    test(stdout)
+  })
+  let test = (stdout) => {
+    let metadatas = JSON.parse(stdout)[0]
+    console.log(metadatas)
+    fields['fileName'] = metadatas.FileName
+    fields['description'] = metadatas.Title
+    fields['copyright'] = metadatas.Copyright
+    fields['path'] = req.file.path
+    console.log(fields)
+    res.render('form.html.twig', {fields: fields})
+  }*/
 })
 
 app.listen(3000, function () {
