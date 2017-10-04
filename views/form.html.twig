@@ -2,6 +2,7 @@
 
 {% block body %}
     <form enctype="multipart/form-data" action="/upload" method="post">
+        <input type="hidden" name="path" value="{{ field.path }}">
         <div>
             <label>File name</label>
             <input type="text" name="inputFileName" title="FileName" value="{{ fields.fileName }}">
@@ -16,7 +17,7 @@
             <label>Copyright</label>
             <input type="text" name="inputCopyright" title="Copyright" value="{{ fields.copyright }}">
         </div>
-
+        <input type="submit" value="Envoyer">
 
     </form>
 {% endblock %}
