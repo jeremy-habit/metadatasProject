@@ -1,0 +1,9 @@
+{% extends "layout/lBase.html.twig" %}
+
+{% block body %}
+    <form enctype="multipart/form-data" action="/upload" method="post">
+        <input type="text" name="inputFileName" title="FileName" value="{{ fields.fileName }}">
+        <input type="text" name="inputTitle" title="Title" value="{{ fields.title }}">
+        <input type="text" name="inputCopyright" title="Copyright" value="{{ fields.copyright }}">
+    </form>
+{% endblock %}

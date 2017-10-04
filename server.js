@@ -1,20 +1,31 @@
 const express = require('express')
 const twig = require('twig')
 const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({dest: 'uploads/'})
+const util = require('util')
+const exec = require('child_process').exec
 
 const app = express()
+
 app.get('/', function (req, res) {
-  res.setHeader('Content-Type', 'text/html');
-  res.render('app.twig');
+  res.setHeader('Content-Type', 'text/html')
+  res.render('app.html.twig')
 })
 
-
 app.post('/upload', upload.single('file'), function (req, res, next) {
-  // req.file is the `avatar` file
-  // req.body will hold the text fields, if there were any
-  console.log(req.file)
-  res.end('ok')
+  let fields = []
+  let cmd = exec('exiftool -json ' + req.file.path, function (error, stdout, stderr) {
+    test(stdout)
+  })
+  let test = (stdout) => {
+    let metadatas = JSON.parse(stdout)[0]
+    console.log(metadatas)
+    fields['fileName'] = metadatas.FileName
+    fields['description'] = metadatas.Title
+    fields['copyright'] = metadatas.Copyright
+    console.log(fields)
+    res.render('form.html.twig', {fields: fields})
+  }
 })
 
 app.listen(3000, function () {
