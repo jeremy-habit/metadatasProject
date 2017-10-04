@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    Hello
+    <form action="localhost:4000/upload" method="post">
+      <input type="file" name="file" id="file">
+    </form>
   </div>
 </template>
 
